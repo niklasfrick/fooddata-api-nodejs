@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,14 @@
   "bugs": {
     "url": "https://github.com/niklasfrick/fooddata-api-nodejs/issues"
   },
-  "homepage": "https://github.com/niklasfrick/fooddata-api-nodejs#readme"
+  "homepage": "https://github.com/niklasfrick/fooddata-api-nodejs#readme",
+  "dependencies": {
+    "isomorphic-unfetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "jest": "^27.0.6",
+    "jest-chain": "^1.1.5",
+    "jest-extended": "^0.11.5"
+  }
 }
