@@ -7,7 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,10 @@
     "isomorphic-unfetch": "^3.1.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "dotenv": "^10.0.0",
+    "husky": "^7.0.0",
     "jest": "^27.0.6",
     "jest-chain": "^1.1.5",
     "jest-extended": "^0.11.5"
