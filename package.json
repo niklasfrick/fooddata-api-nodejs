@@ -7,7 +7,9 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "jest",
+    "test": "npm run lint && jest",
+    "lint": "standard --fix ./*.js",
+    "start": "npm run test",
     "prepare": "husky install"
   },
   "repository": {
@@ -40,6 +42,7 @@
     "husky": "^7.0.0",
     "jest": "^27.0.6",
     "jest-chain": "^1.1.5",
-    "jest-extended": "^0.11.5"
+    "jest-extended": "^0.11.5",
+    "standard": "^16.0.3"
   }
 }
