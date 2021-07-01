@@ -26,6 +26,11 @@ test('can search for foods with and without additional parameters.', async () =>
     expect(Object.keys(searchresult2.foods).length).toBe(4)
 })
 
+test('must pass search term to get results', async () => {
+    const client = new FoodDataCentral(API_KEY)
+    expect(() => client.search()).toThrow(Error)
+})
+
 test('can pass in id to get food details', async () => {
     const client = new FoodDataCentral(API_KEY)
     const detailresult = await client.details(1103063)
