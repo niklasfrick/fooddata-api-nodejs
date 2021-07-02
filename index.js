@@ -1,3 +1,4 @@
+'use strict'
 const fetch = require('isomorphic-unfetch')
 const querystring = require('querystring')
 

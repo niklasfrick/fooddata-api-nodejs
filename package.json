@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "npm run lint && jest",
+    "test:cov": "npm run test -- --coverage",
     "lint": "standard --fix ./*.js",
     "start": "npm run test",
     "prepare": "husky install"
