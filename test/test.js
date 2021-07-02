@@ -49,5 +49,5 @@ test('fdcid must have at least 6 digits', async () => {
 
 test('FDC API returns errors.', async () => {
     const client = new FoodDataCentral(API_KEY)
-    expect(() => client.details(100000)).toThrow(Error)
+    expect(() => client.details(100000)).rejects.toThrow()
 })
