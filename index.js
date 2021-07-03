@@ -43,21 +43,42 @@ class FoodDataCentral {
 
     const qs = options ? '&' + querystring.stringify(options) : ''
 
-    const url = '/v1/foods/search?api_key=' + this.api_key + qs
+    const url = `/v1/foods/search?api_key=${this.api_key}${qs}`
     const config = {
       method: 'GET'
     }
     return this.request(url, config)
   }
 
-  details (fdcid, detailOptions = '') {
+  details (fdcid, { format, nutrients } = { }) {
     if (fdcid === undefined) {
       throw new Error("Error. FDC ID can't be empty.")
     } else if (isNaN(fdcid) || String((Math.abs(fdcid))).length < 6) {
       throw new Error('Error. Wrong FDC ID format.')
     }
 
-    const url = '/v1/food/' + fdcid + '?api_key=' + this.api_key
+    const options = {}
+
+    if (format !== undefined) {
+      switch (format) {
+        case 1:
+          options.format = 'abridged'
+          break
+        case 2:
+          options.format = 'full'
+          break
+        default:
+          throw new Error("Error. Possible Formats: '1' = abridged, '2' = full")
+      }
+    }
+
+    if (nutrients !== undefined) {
+      options.nutrients = nutrients
+    }
+
+    const qs = options ? '&' + querystring.stringify(options) : ''
+
+    const url = `/v1/food/${fdcid}?api_key=${this.api_key}${qs}`
 
     const config = {
       method: 'GET'
