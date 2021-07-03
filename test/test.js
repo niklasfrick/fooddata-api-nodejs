@@ -2,6 +2,8 @@ require('jest-extended')
 require('jest-chain')
 const FoodDataCentral = require('./../')
 
+jest.setTimeout(10000)
+
 require('dotenv').config()
 
 const API_KEY = process.env.FOODDATACENTRAL_API_KEY
