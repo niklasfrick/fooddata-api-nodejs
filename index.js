@@ -53,7 +53,7 @@ class FoodDataCentral {
   details (fdcid, detailOptions = '') {
     if (fdcid === undefined) {
       throw new Error("Error. FDC ID can't be empty.")
-    } else if (String((Math.abs(fdcid))).length < 6) {
+    } else if (isNaN(fdcid) || String((Math.abs(fdcid))).length < 6) {
       throw new Error('Error. Wrong FDC ID format.')
     }
 

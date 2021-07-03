@@ -35,16 +35,21 @@ test('can pass in id to get food details', async () => {
     const client = new FoodDataCentral(API_KEY)
     const detailresult = await client.details(1103063)
     expect(typeof detailresult).toBe('object')
-  })
+})
 
 test('must pass in id food details', async () => {
     const client = new FoodDataCentral(API_KEY)
     expect(() => client.details()).toThrow(Error)
-  })
+})
 
 test('fdcid must have at least 6 digits', async () => {
     const client = new FoodDataCentral(API_KEY)
     expect(() => client.details(12345)).toThrow(Error)
+})
+
+test('fdcid must be a number', async () => {
+    const client = new FoodDataCentral(API_KEY)
+    expect(() => client.details("number")).toThrow(Error)
 })
 
 test('FDC API returns errors.', async () => {
