@@ -30,7 +30,7 @@ class FoodDataCentral {
 
   search (searchTerm, searchOptions = '') {
     if (searchTerm === undefined) {
-      throw new Error("Error. Search Term can't be empty. (Retrieve all foods by searching with '*')")
+      throw new Error("Search Term can't be empty. (Retrieve all foods by searching with '*')")
     }
 
     const options = {
@@ -52,9 +52,9 @@ class FoodDataCentral {
 
   details (fdcid, { format, nutrients } = { }) {
     if (fdcid === undefined) {
-      throw new Error("Error. FDC ID can't be empty.")
+      throw new Error("FDC ID can't be empty.")
     } else if (isNaN(fdcid) || String((Math.abs(fdcid))).length < 6) {
-      throw new Error('Error. Wrong FDC ID format.')
+      throw new Error('Wrong FDC ID format.')
     }
 
     const options = {}
@@ -68,7 +68,7 @@ class FoodDataCentral {
           options.format = 'full'
           break
         default:
-          throw new Error("Error. Possible Formats: '1' = abridged, '2' = full")
+          throw new Error("Possible Formats: '1' = abridged, '2' = full")
       }
     }
 
@@ -79,6 +79,52 @@ class FoodDataCentral {
     const qs = options ? '&' + querystring.stringify(options) : ''
 
     const url = `/v1/food/${fdcid}?api_key=${this.api_key}${qs}`
+
+    const config = {
+      method: 'GET'
+    }
+    return this.request(url, config)
+  }
+
+  list (fdcIds, { format, nutrients } = { }) {
+    const isArrayValid = (currentValue) => {
+      if (typeof currentValue !== 'number' || String(Math.abs(currentValue)).length < 6) {
+        return false
+      } else {
+        return true
+      }
+    }
+
+    if (fdcIds === undefined) {
+      throw new Error("FDC IDs can't be empty. At least one FDC ID required.")
+    } else if (!Array.isArray(fdcIds) || fdcIds.length === 0 || !fdcIds.every(isArrayValid)) {
+      throw new Error('FDC IDs must be an array of at least one number.')
+    }
+
+    const options = {
+      fdcIds: fdcIds
+    }
+
+    if (format !== undefined) {
+      switch (format) {
+        case 1:
+          options.format = 'abridged'
+          break
+        case 2:
+          options.format = 'full'
+          break
+        default:
+          throw new Error("Possible Formats: '1' = abridged, '2' = full")
+      }
+    }
+
+    if (nutrients !== undefined) {
+      options.nutrients = nutrients
+    }
+
+    const qs = options ? '&' + querystring.stringify(options) : ''
+
+    const url = `/v1/foods/?api_key=${this.api_key}${qs}`
 
     const config = {
       method: 'GET'
