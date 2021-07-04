@@ -50,7 +50,7 @@ class FoodDataCentral {
     return this.request(url, config)
   }
 
-  details (fdcid, {format, nutrients} = {}) {
+  details (fdcid, { format, nutrients } = {}) {
     if (fdcid === undefined) {
       throw new Error("FDC ID can't be empty.")
     } else if (isNaN(fdcid) || String((Math.abs(fdcid))).length < 6) {
@@ -86,7 +86,7 @@ class FoodDataCentral {
     return this.request(url, config)
   }
 
-  list (fdcIds, {format, nutrients} = {}) {
+  list (fdcIds, { format, nutrients } = {}) {
     const isArrayValid = (currentValue) => {
       if (typeof currentValue !== 'number' || String(Math.abs(currentValue)).length < 6) {
         return false
