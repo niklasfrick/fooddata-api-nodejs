@@ -2,7 +2,7 @@ require('jest-extended')
 require('jest-chain')
 const FoodDataCentral = require('./../')
 
-jest.setTimeout(10000)
+jest.setTimeout(30000)
 
 require('dotenv').config()
 
@@ -97,6 +97,69 @@ test('can retrieve food details with selected format and desired nutrients combi
     expect(typeof fullOptionsDetailsResult).toBe('object')
     expect(fullOptionsDetailsResult.foodNutrients.length).toBe(2)
 })
+
+// Tests for the list function
+test('can pass in multiple ids to get food details for multiple items', async () => {
+    const client = new FoodDataCentral(API_KEY)
+    const detailresult = await client.list([1103063, 1105073])
+
+    expect(typeof detailresult).toBe('object')
+})
+
+test('must pass in ids food details', async () => {
+    const client = new FoodDataCentral(API_KEY)
+
+    expect(() => client.list()).toThrow(Error)
+})
+
+test('all fdcids must have at least 6 digits', async () => {
+    const client = new FoodDataCentral(API_KEY)
+
+    expect(() => client.list([12345, 123456])).toThrow(Error)
+})
+
+test('all fdcids must be numbers', async () => {
+    const client = new FoodDataCentral(API_KEY)
+
+    expect(() => client.list([1103063, "number"])).toThrow(Error)
+})
+
+test('can retrieve food details of multiple items in abridged format', async () => {
+    const client = new FoodDataCentral(API_KEY)
+    const abridgedResult = await client.list([1103063, 1105073], {format: 1})
+
+    expect(typeof abridgedResult).toBe('object')
+})
+
+test('can retrieve food details of multiple items in full format', async () => {
+    const client = new FoodDataCentral(API_KEY)
+    const fullResult = await client.list([1103063, 1105073], {format: 2})
+
+    expect(typeof fullResult).toBe('object')
+})
+
+test('format must be either 1 or 2 for abridged or full respectively', async () => {
+    const client = new FoodDataCentral(API_KEY)
+
+    expect(() => client.list([1103063, 1105073], {format: "abridged"})).toThrow(Error)
+})
+
+test('can retrieve single nutrients from multiple foods by number', async () => {
+    const client = new FoodDataCentral(API_KEY)
+    const singleNutrientsResult = await client.list([1103063, 1105073], {nutrients: [203, 204, 205]})
+
+    expect(typeof singleNutrientsResult).toBe('object')
+    expect(singleNutrientsResult[0].foodNutrients.length).toBe(3)
+})
+
+test('can retrieve food details of multiple foods with selected format and desired nutrients combined', async () => {
+    const client = new FoodDataCentral(API_KEY)
+    const fullOptionsDetailsResult = await client.list([1103063, 1105073], {format: 1, nutrients: [203, 204]})
+
+    expect(typeof fullOptionsDetailsResult).toBe('object')
+    expect(fullOptionsDetailsResult[0].foodNutrients.length).toBe(2)
+})
+
 
 // Testing API response Errors
 test('FDC API returns errors.', async () => {
