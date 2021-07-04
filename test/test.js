@@ -165,5 +165,5 @@ test('can retrieve food details of multiple foods with selected format and desir
 test('FDC API returns errors.', async () => {
     const client = new FoodDataCentral(API_KEY)
 
-    expect(() => client.details(100000)).rejects.toThrow()
+    expect(() => client.request("/v1/food/1103063?format=abridged&nutrients=203&", {'Content-type': 'application/json'})).rejects.toThrow(Error)
 })
