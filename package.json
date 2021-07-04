@@ -39,6 +39,7 @@
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "commitlint-config-gitmoji": "^2.2.5",
     "dotenv": "^10.0.0",
     "husky": "^7.0.0",
     "jest": "^27.0.6",
